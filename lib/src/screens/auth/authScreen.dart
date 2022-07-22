@@ -23,10 +23,6 @@ class _AuthScreenState extends State<AuthScreen> {
   String _username = "";
   String _password = "";
 
-  void _incrementCounter() {
-    print("Plus");
-  }
-
   void _setUsername(String value) {
     setState(() {
       _username = value;
@@ -44,50 +40,84 @@ class _AuthScreenState extends State<AuthScreen> {
         arguments: AuthData(password: _password, username: _username));
   }
 
+  void _onPressRegister() {}
+
+  void _onPressSignWithGoogle() {}
+
+  void _onPressForgotPassword() {}
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              _username,
-              style: Theme.of(context).textTheme.headline6,
-            ),
             TextInput(
+              label: "Username",
               onChange: _setUsername,
             ),
             TextInput(
+              label: "Password",
               onChange: _setPassword,
               passwordUsing: true,
             ),
-            Text(
-              'Enter password',
-              style: Theme.of(context).textTheme.headline6,
-            ),
             Container(
-              padding: const EdgeInsets.only(top: 8, bottom: 8),
-              child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(mainColor),
-                      fixedSize:
-                          MaterialStateProperty.all(Size(width - 40, 48)),
-                      textStyle: MaterialStateProperty.all(
-                          const TextStyle(fontSize: 20))),
-                  onPressed: _onPressLogin,
-                  child: const Text("Login")),
-            )
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(top: 16, bottom: 8, right: 16),
+              child: GestureDetector(
+                  onTap: _onPressForgotPassword,
+                  child: Text("Forgot password?",
+                      textAlign: TextAlign.right,
+                      style: Theme.of(context).textTheme.button)),
+            ),
+            _Button(
+                onPressed: _onPressLogin,
+                child: const Text(
+                  "Sign in",
+                  style: TextStyle(fontSize: 18),
+                )),
+            _Button(
+                onPressed: _onPressSignWithGoogle,
+                child: const Text(
+                  "Sign in with Google",
+                  style: TextStyle(fontSize: 18),
+                )),
+            _Button(
+                onPressed: _onPressRegister,
+                child: const Text(
+                  "Register new account",
+                  style: TextStyle(fontSize: 18),
+                )),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
+  }
+}
+
+class _Button extends StatelessWidget {
+  const _Button({Key? key, this.onPressed, this.child}) : super(key: key);
+  final Function()? onPressed;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return Container(
+        padding: const EdgeInsets.only(top: 4, bottom: 8, left: 16, right: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(mainColor),
+                    fixedSize: MaterialStateProperty.all(Size(width - 40, 48)),
+                    textStyle: MaterialStateProperty.all(
+                        const TextStyle(fontSize: 20))),
+                onPressed: onPressed,
+                child: child),
+          ],
+        ));
   }
 }

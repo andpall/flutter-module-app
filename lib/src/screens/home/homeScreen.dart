@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_mod_app/src/constants/theme.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   final String username;
@@ -13,10 +15,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _onPressed() {
+      var themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+      themeProvider.switchThemeMode();
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text(username),
         ),
-        body: Container());
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: ElevatedButton(
+              onPressed: _onPressed, child: const Text("Change Theme")),
+        ));
   }
 }

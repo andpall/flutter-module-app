@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_mod_app/src/constants/colors.dart';
 
 class TextInput extends StatefulWidget {
-  const TextInput({Key? key, this.onChange, this.passwordUsing = false})
+  const TextInput(
+      {Key? key,
+      this.onChange,
+      this.passwordUsing = false,
+      this.label = "",
+      this.placeholder = ""})
       : super(key: key);
 
   final Function? onChange;
+  final String placeholder;
+  final String label;
   final bool passwordUsing;
 
   @override
@@ -29,25 +37,43 @@ class _TextInputState extends State<TextInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-              child: TextField(
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              widget.label,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          TextField(
             obscureText: widget.passwordUsing && _isVisisble,
             enableSuggestions: false,
             autocorrect: false,
+            cursorColor: mainColor,
             onChanged: _onChange,
-          )),
-          widget.passwordUsing
-              ? GestureDetector(
-                  onTap: _onPressedVisible,
-                  child: Icon(_isVisisble
-                      ? Icons.remove_red_eye
-                      : Icons.remove_red_eye_outlined))
-              : Container(),
+            decoration: InputDecoration(
+                fillColor: const Color.fromRGBO(224, 231, 255, 0.3),
+                filled: true,
+                hintText: widget.placeholder,
+                suffixIcon: widget.passwordUsing
+                    ? GestureDetector(
+                        onTap: _onPressedVisible,
+                        child: Icon(
+                          _isVisisble
+                              ? Icons.remove_red_eye
+                              : Icons.remove_red_eye_outlined,
+                          color: _isVisisble ? disabledBtn : disabledBtn,
+                        ))
+                    : null,
+                border: const UnderlineInputBorder(),
+                focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: mainColor))),
+          ),
         ],
       ),
     );

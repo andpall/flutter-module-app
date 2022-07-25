@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mod_app/src/constants/theme.dart';
+import 'package:flutter_mod_app/src/providers/theme.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {

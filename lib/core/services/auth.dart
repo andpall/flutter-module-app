@@ -2,10 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 void listenUser() {
   FirebaseAuth.instance.authStateChanges().listen(
-    (User? user) {
-      print(user);
-    },
-  );
+        (User? user) {},
+      );
 }
 
 User? getUser() {

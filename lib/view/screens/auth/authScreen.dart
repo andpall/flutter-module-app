@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mod_app/constants/appAssets.dart';
 import 'package:flutter_mod_app/view/components/bigButton/button.dart';
 import 'package:flutter_mod_app/view/components/textInput/textInput.dart';
 import 'package:flutter_mod_app/constants/colors.dart';
 import 'package:flutter_mod_app/view/screens/home/homeScreen.dart';
 import 'package:flutter_mod_app/core/services/auth.dart';
 import 'package:flutter_mod_app/core/models/auth_data.dart';
-
-const googleImage = "assets/images/google_logo.png";
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -45,6 +44,7 @@ class _AuthScreenState extends State<AuthScreen> {
   void _onPressLogin() async {
     try {
       await authWithEmail(_username, _password);
+      if (!mounted) return;
       Navigator.pushNamed(context, HomeScreen.routeName,
           arguments: AuthData(password: _password, username: _username));
     } catch (e) {
@@ -118,9 +118,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         onPressed: _onPressSignWithGoogle,
                         icon: Padding(
                           padding: const EdgeInsets.all(6.0),
-                          child: Tab(
-                              icon: Image.asset(googleImage,
-                                  color: Colors.white)),
+                          child: Tab(icon: AppAssets.googleLogo),
                         ),
                         child: const Text(
                           "Sign in with Google",

@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:provider/provider.dart';
+
 import 'package:flutter_mod_app/src/constants/theme.dart';
 import 'package:flutter_mod_app/src/navigator/navigator.dart';
 import 'package:flutter_mod_app/src/providers/theme.dart';
 import 'package:flutter_mod_app/src/screens/auth/authScreen.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      name: 'flutter-module-app',
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
 
   ThemePreference darkThemePreference = ThemePreference();
   bool isDarkTheme = await darkThemePreference.getTheme();

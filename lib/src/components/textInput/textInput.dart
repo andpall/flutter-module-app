@@ -53,6 +53,8 @@ class _TextInputState extends State<TextInput> {
           SizedBox(
             height: 40,
             child: TextField(
+              toolbarOptions: const ToolbarOptions(
+                  copy: true, paste: true, selectAll: true, cut: true),
               obscureText: widget.passwordUsing && _isVisisble,
               enableSuggestions: false,
               autocorrect: false,

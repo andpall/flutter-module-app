@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/src/screens/auth/authScreen.dart';
 import 'package:flutter_mod_app/src/screens/home/homeScreen.dart';
+import 'package:flutter_mod_app/src/models/auth_data.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
   AuthScreen.routeName: (context) => const AuthScreen(),

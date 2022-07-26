@@ -1,17 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/src/components/bigButton/button.dart';
 import 'package:flutter_mod_app/src/components/textInput/textInput.dart';
 import 'package:flutter_mod_app/src/constants/colors.dart';
 import 'package:flutter_mod_app/src/screens/home/homeScreen.dart';
+import 'package:flutter_mod_app/src/services/auth.dart';
+import 'package:flutter_mod_app/src/models/auth_data.dart';
 
 const googleImage = "assets/images/google_logo.png";
-
-class AuthData {
-  final String username;
-  final String password;
-
-  AuthData({required this.password, required this.username});
-}
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -26,6 +22,14 @@ class _AuthScreenState extends State<AuthScreen> {
   String _username = "";
   String _password = "";
 
+  void errCb(FirebaseAuthException e) {
+    if (e.code == 'user-not-found') {
+      print('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      print('Wrong password provided for that user.');
+    }
+  }
+
   void _setUsername(String value) {
     setState(() {
       _username = value;
@@ -38,9 +42,14 @@ class _AuthScreenState extends State<AuthScreen> {
     });
   }
 
-  void _onPressLogin() {
-    Navigator.pushNamed(context, HomeScreen.routeName,
-        arguments: AuthData(password: _password, username: _username));
+  void _onPressLogin() async {
+    try {
+      await authWithEmail(_username, _password);
+      Navigator.pushNamed(context, HomeScreen.routeName,
+          arguments: AuthData(password: _password, username: _username));
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   void _onPressRegister() {}

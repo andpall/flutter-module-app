@@ -4,15 +4,29 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mod_app/src/constants/theme.dart';
 import 'package:flutter_mod_app/src/providers/theme.dart';
+import 'package:flutter_mod_app/src/services/auth.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final String username;
   final String password;
 
   const HomeScreen({Key? key, required this.password, required this.username})
       : super(key: key);
   static const routeName = "/home";
+
+  @override
+  State<HomeScreen> createState() => _HomeScreen();
+}
+
+class _HomeScreen extends State<HomeScreen> {
+  String? email;
+
+  @override
+  void initState() {
+    super.initState();
+    email = getUser()?.email;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +37,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(username),
+          title: Text(email ?? ""),
         ),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,

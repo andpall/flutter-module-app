@@ -5,10 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_mod_app/src/constants/theme.dart';
-import 'package:flutter_mod_app/src/navigator/navigator.dart';
-import 'package:flutter_mod_app/src/providers/theme.dart';
-import 'package:flutter_mod_app/src/screens/auth/authScreen.dart';
+import 'package:flutter_mod_app/constants/theme.dart';
+import 'package:flutter_mod_app/core/navigator/navigator.dart';
+import 'package:flutter_mod_app/core/providers/theme.dart';
+import 'package:flutter_mod_app/view/screens/auth/authScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

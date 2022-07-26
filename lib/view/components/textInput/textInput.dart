@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_mod_app/src/constants/colors.dart';
+import 'package:flutter_mod_app/constants/colors.dart';
+
 
 class TextInput extends StatefulWidget {
   const TextInput(

@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mod_app/src/components/bigButton/button.dart';
-import 'package:flutter_mod_app/src/components/textInput/textInput.dart';
-import 'package:flutter_mod_app/src/constants/colors.dart';
-import 'package:flutter_mod_app/src/screens/home/homeScreen.dart';
-import 'package:flutter_mod_app/src/services/auth.dart';
-import 'package:flutter_mod_app/src/models/auth_data.dart';
+import 'package:flutter_mod_app/view/components/bigButton/button.dart';
+import 'package:flutter_mod_app/view/components/textInput/textInput.dart';
+import 'package:flutter_mod_app/constants/colors.dart';
+import 'package:flutter_mod_app/view/screens/home/homeScreen.dart';
+import 'package:flutter_mod_app/core/services/auth.dart';
+import 'package:flutter_mod_app/core/models/auth_data.dart';
 
 const googleImage = "assets/images/google_logo.png";
 

@@ -2,38 +2,38 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemePreference {
-  static const THEME_STATUS = "THEME_STATUS";
+  static const themeStatus = "THEME_STATUS";
 
   setDarkTheme(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(THEME_STATUS, value);
+    prefs.setBool(themeStatus, value);
   }
 
   Future<bool> getTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(THEME_STATUS) ?? false;
+    return prefs.getBool(themeStatus) ?? false;
   }
 }
 
 class ThemeProvider with ChangeNotifier {
   ThemePreference darkThemePreference = ThemePreference();
-  bool _darkmode = false;
+  bool _darkMode = false;
 
   ThemeProvider(bool isDarkTheme) {
-    _darkmode = isDarkTheme;
+    _darkMode = isDarkTheme;
   }
 
-  bool get getDarkMode => _darkmode;
+  bool get getDarkMode => _darkMode;
 
   void setDarkThemeMode(bool data) {
-    _darkmode = data;
+    _darkMode = data;
     darkThemePreference.setDarkTheme(data);
     notifyListeners();
   }
 
   void switchThemeMode() {
-    _darkmode = !_darkmode;
-    darkThemePreference.setDarkTheme(_darkmode);
+    _darkMode = !_darkMode;
+    darkThemePreference.setDarkTheme(_darkMode);
     notifyListeners();
   }
 }

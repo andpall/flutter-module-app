@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_mod_app/src/constants/colors.dart';
+
+import 'package:flutter_mod_app/constants/colors.dart';
 
 class BigButton extends StatelessWidget {
   const BigButton({Key? key, this.onPressed, this.child, this.icon})

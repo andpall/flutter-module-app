@@ -20,6 +20,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   String _username = "";
   String _password = "";
+  String _error = "";
 
   void errCb(FirebaseAuthException e) {
     if (e.code == 'user-not-found') {
@@ -44,11 +45,12 @@ class _AuthScreenState extends State<AuthScreen> {
   void _onPressLogin() async {
     try {
       await authWithEmail(_username, _password);
+      setState(() => _error = "");
       if (!mounted) return;
       Navigator.pushNamed(context, homeRoute,
           arguments: AuthData(password: _password, username: _username));
     } catch (e) {
-      print(e.toString());
+      setState(() => _error = e.toString());
     }
   }
 
@@ -72,13 +74,21 @@ class _AuthScreenState extends State<AuthScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextInput(
-                      label: "Email",
+                      label: AppLocalizations.of(context)!.email,
                       onChange: _setUsername,
                     ),
                     TextInput(
-                      label: "Password",
+                      label: AppLocalizations.of(context)!.password,
                       onChange: _setPassword,
                       passwordUsing: true,
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 8, left: 24, right: 24),
+                      child: Text(
+                        _error,
+                        style: const TextStyle(fontSize: 16, color: Colors.red),
+                      ),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -86,9 +96,10 @@ class _AuthScreenState extends State<AuthScreen> {
                           const EdgeInsets.only(top: 24, bottom: 8, right: 32),
                       child: GestureDetector(
                           onTap: _onPressForgotPassword,
-                          child: const Text("Forgot password",
+                          child: Text(
+                              AppLocalizations.of(context)!.forgot_password,
                               textAlign: TextAlign.right,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.transparent,
                                 shadows: [
@@ -126,9 +137,9 @@ class _AuthScreenState extends State<AuthScreen> {
                         )),
                     BigButton(
                         onPressed: _onPressRegister,
-                        child: const Text(
-                          "Register new account",
-                          style: TextStyle(fontSize: 18),
+                        child: Text(
+                          AppLocalizations.of(context)!.register_new_account,
+                          style: const TextStyle(fontSize: 18),
                         )),
                   ],
                 ),

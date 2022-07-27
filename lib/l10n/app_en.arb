@@ -1,4 +1,8 @@
 {
   "sign_in": "Sign in",
-  "sign_in_with_google": "Sign in with Google"
+  "sign_in_with_google": "Sign in with Google",
+  "register_new_account": "Register new account",
+  "forgot_password": "Forgot password",
+  "email": "Email",
+  "password": "Password"
 }

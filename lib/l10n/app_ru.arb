@@ -1,3 +1,8 @@
 {
-  "sign_in": "Войти"
+  "sign_in": "Войти",
+  "sign_in_with_google": "Войти с помощью Google",
+  "register_new_account": "Зарегистрироваться",
+  "forgot_password": "Забыли пароль",
+  "email": "Почта",
+  "password": "Пароль"
 }

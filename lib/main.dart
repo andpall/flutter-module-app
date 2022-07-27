@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_mod_app/constants/routes.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter_mod_app/constants/theme.dart';
 import 'package:flutter_mod_app/core/navigator/navigator.dart';
 import 'package:flutter_mod_app/core/providers/theme.dart';
-import 'package:flutter_mod_app/view/screens/auth/authScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,10 +48,16 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Module App',
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('en', ''), Locale('ru', '')],
         theme: Provider.of<ThemeProvider>(context).getDarkMode
             ? darkTheme
             : lightTheme,
-        initialRoute: AuthScreen.routeName,
+        initialRoute: authRoute,
         onGenerateRoute: onGenerateGlobalRoute);
   }
 }

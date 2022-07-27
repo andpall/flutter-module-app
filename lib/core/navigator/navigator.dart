@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mod_app/constants/routes.dart';
 import 'package:flutter_mod_app/view/screens/auth/authScreen.dart';
 import 'package:flutter_mod_app/view/screens/home/homeScreen.dart';
 import 'package:flutter_mod_app/core/models/auth_data.dart';
 
-
-Map<String, Widget Function(BuildContext)> routes = {
-  AuthScreen.routeName: (context) => const AuthScreen(),
-};
-
 MaterialPageRoute? onGenerateGlobalRoute(RouteSettings settings) {
   switch (settings.name) {
-    case (HomeScreen.routeName):
+    case (homeRoute):
       {
         final args = settings.arguments as AuthData;
         return MaterialPageRoute(
@@ -22,7 +18,7 @@ MaterialPageRoute? onGenerateGlobalRoute(RouteSettings settings) {
           },
         );
       }
-    case (AuthScreen.routeName):
+    case (authRoute):
       {
         return MaterialPageRoute(
           builder: (context) {
@@ -32,7 +28,7 @@ MaterialPageRoute? onGenerateGlobalRoute(RouteSettings settings) {
       }
     default:
       {
-        return null;
+        break;
       }
   }
 }

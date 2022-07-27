@@ -1,17 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/constants/appAssets.dart';
+import 'package:flutter_mod_app/constants/routes.dart';
 import 'package:flutter_mod_app/view/components/bigButton/button.dart';
 import 'package:flutter_mod_app/view/components/textInput/textInput.dart';
 import 'package:flutter_mod_app/constants/colors.dart';
-import 'package:flutter_mod_app/view/screens/home/homeScreen.dart';
 import 'package:flutter_mod_app/core/services/auth.dart';
 import 'package:flutter_mod_app/core/models/auth_data.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
-
-  static const String routeName = '/auth';
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -45,7 +43,7 @@ class _AuthScreenState extends State<AuthScreen> {
     try {
       await authWithEmail(_username, _password);
       if (!mounted) return;
-      Navigator.pushNamed(context, HomeScreen.routeName,
+      Navigator.pushNamed(context, homeRoute,
           arguments: AuthData(password: _password, username: _username));
     } catch (e) {
       print(e.toString());

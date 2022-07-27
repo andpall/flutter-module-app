@@ -3,7 +3,6 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_mod_app/constants/colors.dart';
 
-
 class TextInput extends StatefulWidget {
   const TextInput(
       {Key? key,
@@ -26,9 +25,7 @@ class _TextInputState extends State<TextInput> {
   bool _isVisisble = false;
 
   void _onPressedVisible() {
-    setState(() {
-      _isVisisble = !_isVisisble;
-    });
+    setState(() => _isVisisble = !_isVisisble);
   }
 
   void _onChange(String value) {

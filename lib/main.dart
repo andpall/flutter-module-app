@@ -7,6 +7,8 @@ import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter_mod_app/constants/theme.dart';
 import 'package:flutter_mod_app/core/navigator/navigator.dart';
 import 'package:flutter_mod_app/core/providers/theme.dart';
@@ -49,6 +51,7 @@ class App extends StatelessWidget {
     return MaterialApp(
         title: 'Module App',
         localizationsDelegates: const [
+          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

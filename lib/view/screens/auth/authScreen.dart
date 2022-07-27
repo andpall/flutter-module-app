@@ -8,6 +8,8 @@ import 'package:flutter_mod_app/constants/colors.dart';
 import 'package:flutter_mod_app/core/services/auth.dart';
 import 'package:flutter_mod_app/core/models/auth_data.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
 
@@ -108,19 +110,19 @@ class _AuthScreenState extends State<AuthScreen> {
                   children: [
                     BigButton(
                         onPressed: _onPressLogin,
-                        child: const Text(
-                          "Sign in",
-                          style: TextStyle(fontSize: 18),
+                        child: Text(
+                          AppLocalizations.of(context)!.sign_in,
+                          style: const TextStyle(fontSize: 18),
                         )),
                     BigButton(
                         onPressed: _onPressSignWithGoogle,
-                        icon: Padding(
-                          padding: const EdgeInsets.all(6.0),
+                        icon: const Padding(
+                          padding: EdgeInsets.all(6.0),
                           child: Tab(icon: AppAssets.googleLogo),
                         ),
-                        child: const Text(
-                          "Sign in with Google",
-                          style: TextStyle(fontSize: 18),
+                        child: Text(
+                          AppLocalizations.of(context)!.sign_in_with_google,
+                          style: const TextStyle(fontSize: 18),
                         )),
                     BigButton(
                         onPressed: _onPressRegister,

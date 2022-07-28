@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mod_app/core/controllers/authController.dart';
 import 'package:flutter_mod_app/core/providers/theme.dart';
-import 'package:flutter_mod_app/core/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,12 +15,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+  final AuthController _authController = AuthController();
   String? email;
 
   @override
   void initState() {
     super.initState();
-    email = getUser()?.email;
+    email = _authController.getUser()?.email;
   }
 
   @override

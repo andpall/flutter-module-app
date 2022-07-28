@@ -2,13 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/constants/appAssets.dart';
 import 'package:flutter_mod_app/constants/routes.dart';
-import 'package:flutter_mod_app/core/controllers/authController.dart';
+import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:flutter_mod_app/view/components/bigButton/button.dart';
 import 'package:flutter_mod_app/view/components/textInput/textInput.dart';
 import 'package:flutter_mod_app/constants/colors.dart';
 import 'package:flutter_mod_app/core/models/auth_data.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  final AuthController _authController = AuthController();
   String _username = "";
   String _password = "";
   String _error = "";
@@ -45,11 +45,15 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void _onPressLogin() async {
     try {
-      await _authController.signWithMail(_username, _password);
+      await Provider.of<AuthStateProvider>(context, listen: false)
+          .signWithMail(AuthData(_username, _password));
       setState(() => _error = "");
       if (!mounted) return;
       Navigator.pushNamed(context, homeRoute,
-          arguments: AuthData(password: _password, username: _username));
+          arguments: AuthData(
+            _username,
+            _password,
+          ));
     } catch (e) {
       setState(() => _error = e.toString());
     }

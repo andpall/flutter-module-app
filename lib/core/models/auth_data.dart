@@ -2,5 +2,5 @@ class AuthData {
   final String username;
   final String password;
 
-  AuthData({required this.password, required this.username});
+  AuthData(this.username, this.password);
 }

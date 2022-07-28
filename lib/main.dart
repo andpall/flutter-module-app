@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_mod_app/constants/theme.dart';
 import 'package:flutter_mod_app/core/navigator/navigator.dart';
 import 'package:flutter_mod_app/constants/routes.dart';
-import 'package:flutter_mod_app/core/providers/theme.dart';
+import 'package:flutter_mod_app/core/stateProviders/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,9 @@ void main() async {
     providers: [
       ChangeNotifierProvider(
         create: (context) => ThemeProvider(isDarkTheme),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => AuthStateProvider(),
       )
     ],
     child: const App(),

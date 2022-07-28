@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mod_app/core/controllers/authController.dart';
-import 'package:flutter_mod_app/core/providers/theme.dart';
+import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter_mod_app/core/stateProviders/theme.dart';
 
 class HomeScreen extends StatefulWidget {
   final String username;
@@ -15,17 +16,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  final AuthController _authController = AuthController();
-  String? email;
-
   @override
   void initState() {
     super.initState();
-    email = _authController.getUser()?.email;
   }
 
   @override
   Widget build(BuildContext context) {
+    String? email =
+        Provider.of<AuthStateProvider>(context, listen: true).getUserEmail;
+
     void _onPressed() {
       var themeProvider = Provider.of<ThemeProvider>(context, listen: false);
       themeProvider.switchThemeMode();

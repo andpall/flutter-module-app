@@ -16,5 +16,10 @@ class AuthProvider {
     await _authRepository.signWithMail(data);
   }
 
+  Future<void> signOut() async {
+    await _authRepository.signOut();
+  }
+
+
   User? getUser() => _authRepository.getUser();
 }

@@ -15,4 +15,10 @@ class AuthStateProvider with ChangeNotifier {
     _email = _authProvider.getUser()?.email;
     notifyListeners();
   }
+
+  Future<void> signOut() async {
+    await _authProvider.signOut();
+    _email = _authProvider.getUser()?.email;
+    notifyListeners();
+  }
 }

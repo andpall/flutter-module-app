@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mod_app/constants/routes.dart';
 import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -31,14 +32,30 @@ class _HomeScreen extends State<HomeScreen> {
       themeProvider.switchThemeMode();
     }
 
+    void _onPressedSignOut() async {
+      var authProvider = Provider.of<AuthStateProvider>(context, listen: false);
+      await authProvider.signOut();
+      if (!mounted) return;
+      Navigator.of(context).popUntil(ModalRoute.withName(authRoute));
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text(email ?? ""),
         ),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: ElevatedButton(
-              onPressed: _onPressed, child: const Text("Change Theme")),
+        body: Column(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ElevatedButton(
+                  onPressed: _onPressedSignOut, child: const Text("Log Out")),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ElevatedButton(
+                  onPressed: _onPressed, child: const Text("Change Theme")),
+            ),
+          ],
         ));
   }
 }

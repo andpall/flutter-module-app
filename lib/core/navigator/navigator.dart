@@ -10,6 +10,7 @@ MaterialPageRoute? onGenerateGlobalRoute(RouteSettings settings) {
       {
         final args = settings.arguments as AuthData;
         return MaterialPageRoute(
+          settings: const RouteSettings(name: homeRoute),
           builder: (context) {
             return HomeScreen(
               username: args.username,
@@ -21,6 +22,7 @@ MaterialPageRoute? onGenerateGlobalRoute(RouteSettings settings) {
     case (authRoute):
       {
         return MaterialPageRoute(
+          settings: const RouteSettings(name: authRoute),
           builder: (context) {
             return const AuthScreen();
           },
@@ -31,4 +33,5 @@ MaterialPageRoute? onGenerateGlobalRoute(RouteSettings settings) {
         break;
       }
   }
+  return null;
 }

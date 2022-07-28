@@ -22,10 +22,10 @@ class TextInput extends StatefulWidget {
 }
 
 class _TextInputState extends State<TextInput> {
-  bool _isVisisble = false;
+  bool _isVisible = false;
 
   void _onPressedVisible() {
-    setState(() => _isVisisble = !_isVisisble);
+    setState(() => _isVisible = !_isVisible);
   }
 
   void _onChange(String value) {
@@ -53,7 +53,7 @@ class _TextInputState extends State<TextInput> {
             child: TextField(
               toolbarOptions: const ToolbarOptions(
                   copy: true, paste: true, selectAll: true, cut: true),
-              obscureText: widget.passwordUsing && _isVisisble,
+              obscureText: widget.passwordUsing && !_isVisible,
               enableSuggestions: false,
               autocorrect: false,
               cursorColor: mainColor,
@@ -66,10 +66,10 @@ class _TextInputState extends State<TextInput> {
                       ? GestureDetector(
                           onTap: _onPressedVisible,
                           child: Icon(
-                            _isVisisble
+                            _isVisible
                                 ? Icons.remove_red_eye
                                 : Icons.remove_red_eye_outlined,
-                            color: _isVisisble ? disabledBtn : disabledBtn,
+                            color: _isVisible ? disabledBtn : disabledBtn,
                           ))
                       : null,
                   border: const UnderlineInputBorder(),

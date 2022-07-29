@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mod_app/core/models/auth_data.dart';
-import 'package:flutter_mod_app/core/providers/auth.dart';
+import 'package:flutter_mod_app/core/repositories/auth.dart';
 
 class AuthStateProvider with ChangeNotifier {
-  final AuthProvider _authProvider = AuthProvider();
+  final AuthRepository _authProvider = AuthRepository();
   String? _email;
 
   AuthStateProvider();

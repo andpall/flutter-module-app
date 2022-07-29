@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mod_app/constants/routes.dart';
+import 'package:flutter_mod_app/core/navigator/navigator.dart';
 import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +32,7 @@ class _HomeScreen extends State<HomeScreen> {
       var authProvider = Provider.of<AuthStateProvider>(context, listen: false);
       await authProvider.signOut();
       if (!mounted) return;
-      Navigator.of(context).popUntil(ModalRoute.withName(authRoute));
+      Navigator.of(context).popUntil(ModalRoute.withName(AppRoutes.authRoute));
     }
 
     return Scaffold(

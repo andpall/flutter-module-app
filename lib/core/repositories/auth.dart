@@ -37,13 +37,15 @@ class AuthRepository {
     }
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<void> signWithGoogle() async {
     try {
+      await _googleSignIn.signOut();
       final googleUser = await _googleSignIn.signIn();
 
       final googleAuth = await googleUser?.authentication;
 
-      final credential = GoogleAuthProvider.credential(accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
 
       await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (error) {

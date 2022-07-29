@@ -12,7 +12,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter_mod_app/constants/theme.dart';
 import 'package:flutter_mod_app/core/navigator/navigator.dart';
-import 'package:flutter_mod_app/constants/routes.dart';
 import 'package:flutter_mod_app/core/stateProviders/theme.dart';
 
 void main() async {
@@ -67,8 +66,8 @@ class App extends StatelessWidget {
             : lightTheme,
         initialRoute:
             Provider.of<AuthStateProvider>(context).getUserEmail == null
-                ? authRoute
-                : homeRoute,
-        onGenerateRoute: onGenerateGlobalRoute);
+                ? AppRoutes.authRoute
+                : AppRoutes.homeRoute,
+        onGenerateRoute: AppRouter.onGenerateRoute);
   }
 }

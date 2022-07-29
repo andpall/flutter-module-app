@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/constants/appAssets.dart';
-import 'package:flutter_mod_app/constants/routes.dart';
+import 'package:flutter_mod_app/core/navigator/navigator.dart';
 import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:flutter_mod_app/view/components/bigButton/button.dart';
 import 'package:flutter_mod_app/view/components/textInput/textInput.dart';
@@ -49,7 +49,7 @@ class _AuthScreenState extends State<AuthScreen> {
           .signWithMail(AuthData(_username, _password));
       setState(() => _error = "");
       if (!mounted) return;
-      Navigator.pushNamed(context, homeRoute,
+      Navigator.pushNamed(context, AppRoutes.homeRoute,
           arguments: AuthData(
             _username,
             _password,
@@ -67,7 +67,7 @@ class _AuthScreenState extends State<AuthScreen> {
           .signWithGoogle();
       setState(() => _error = "");
       if (!mounted) return;
-      Navigator.pushNamed(context, homeRoute,
+      Navigator.pushNamed(context, AppRoutes.homeRoute,
           arguments: AuthData(
             _username,
             _password,

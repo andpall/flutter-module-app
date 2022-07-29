@@ -65,7 +65,10 @@ class App extends StatelessWidget {
         theme: Provider.of<ThemeProvider>(context).getDarkMode
             ? darkTheme
             : lightTheme,
-        initialRoute: authRoute,
+        initialRoute:
+            Provider.of<AuthStateProvider>(context).getUserEmail == null
+                ? authRoute
+                : homeRoute,
         onGenerateRoute: onGenerateGlobalRoute);
   }
 }

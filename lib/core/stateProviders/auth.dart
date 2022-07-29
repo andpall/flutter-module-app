@@ -16,6 +16,12 @@ class AuthStateProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> signWithGoogle() async {
+    await _authProvider.signWithGoogle();
+    _email = _authProvider.getUser()?.email;
+    notifyListeners();
+  }
+
   Future<void> signOut() async {
     await _authProvider.signOut();
     _email = _authProvider.getUser()?.email;

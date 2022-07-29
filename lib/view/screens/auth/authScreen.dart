@@ -61,7 +61,21 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void _onPressRegister() {}
 
-  void _onPressSignWithGoogle() {}
+  void _onPressSignWithGoogle() async {
+    try {
+      await Provider.of<AuthStateProvider>(context, listen: false)
+          .signWithGoogle();
+      setState(() => _error = "");
+      if (!mounted) return;
+      Navigator.pushNamed(context, homeRoute,
+          arguments: AuthData(
+            _username,
+            _password,
+          ));
+    } catch (e) {
+      setState(() => _error = e.toString());
+    }
+  }
 
   void _onPressForgotPassword() {}
 

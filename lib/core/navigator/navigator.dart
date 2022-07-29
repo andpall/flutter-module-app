@@ -12,10 +12,7 @@ MaterialPageRoute? onGenerateGlobalRoute(RouteSettings settings) {
         return MaterialPageRoute(
           settings: const RouteSettings(name: homeRoute),
           builder: (context) {
-            return HomeScreen(
-              username: args.username,
-              password: args.password,
-            );
+            return const HomeScreen();
           },
         );
       }

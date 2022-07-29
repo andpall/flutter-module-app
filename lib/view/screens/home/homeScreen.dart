@@ -6,11 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_mod_app/core/stateProviders/theme.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String username;
-  final String password;
-
-  const HomeScreen({Key? key, required this.password, required this.username})
-      : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreen();

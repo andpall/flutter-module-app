@@ -16,6 +16,10 @@ class AuthProvider {
     await _authRepository.signWithMail(data);
   }
 
+  Future<void> signWithGoogle() async {
+    await _authRepository.signInWithGoogle();
+  }
+
   Future<void> signOut() async {
     await _authRepository.signOut();
   }

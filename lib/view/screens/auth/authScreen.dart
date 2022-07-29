@@ -49,11 +49,7 @@ class _AuthScreenState extends State<AuthScreen> {
           .signWithMail(AuthData(_username, _password));
       setState(() => _error = "");
       if (!mounted) return;
-      Navigator.pushNamed(context, AppRoutes.homeRoute,
-          arguments: AuthData(
-            _username,
-            _password,
-          ));
+      Navigator.pushNamed(context, AppRoutes.homeRoute);
     } catch (e) {
       setState(() => _error = e.toString());
     }
@@ -67,11 +63,7 @@ class _AuthScreenState extends State<AuthScreen> {
           .signWithGoogle();
       setState(() => _error = "");
       if (!mounted) return;
-      Navigator.pushNamed(context, AppRoutes.homeRoute,
-          arguments: AuthData(
-            _username,
-            _password,
-          ));
+      Navigator.pushNamed(context, AppRoutes.homeRoute);
     } catch (e) {
       setState(() => _error = e.toString());
     }

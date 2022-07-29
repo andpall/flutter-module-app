@@ -6,7 +6,9 @@ class AuthStateProvider with ChangeNotifier {
   final AuthRepository _authProvider = AuthRepository();
   String? _email;
 
-  AuthStateProvider();
+  AuthStateProvider() {
+    _email = _authProvider.getUser()?.email;
+  }
 
   String? get getUserEmail => _email;
 

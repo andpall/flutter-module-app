@@ -32,7 +32,8 @@ class _HomeScreen extends State<HomeScreen> {
       var authProvider = Provider.of<AuthStateProvider>(context, listen: false);
       await authProvider.signOut();
       if (!mounted) return;
-      Navigator.of(context).popUntil(ModalRoute.withName(AppRoutes.authRoute));
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          AppRoutes.authRoute, ModalRoute.withName(AppRoutes.authRoute));
     }
 
     return Scaffold(

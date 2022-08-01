@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/constants/appAssets.dart';
-import 'package:flutter_mod_app/core/navigator/navigator.dart';
+import 'package:flutter_mod_app/constants/appRoutes.dart';
 import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:flutter_mod_app/view/components/bigButton/button.dart';
 import 'package:flutter_mod_app/view/components/textInput/textInput.dart';

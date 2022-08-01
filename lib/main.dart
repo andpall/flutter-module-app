@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_mod_app/constants/appRoutes.dart';
 import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 
 import 'firebase_options.dart';

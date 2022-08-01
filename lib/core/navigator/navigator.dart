@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mod_app/constants/appRoutes.dart';
 import 'package:flutter_mod_app/view/screens/auth/authScreen.dart';
 import 'package:flutter_mod_app/view/screens/home/homeScreen.dart';
-
-class AppRoutes {
-  static const String authRoute = '/auth';
-  static const String homeRoute = '/home';
-}
 
 class AppRouter {
   static MaterialPageRoute? onGenerateRoute(RouteSettings settings) {

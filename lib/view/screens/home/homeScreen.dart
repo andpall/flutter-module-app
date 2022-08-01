@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mod_app/core/navigator/navigator.dart';
+import 'package:flutter_mod_app/constants/appRoutes.dart';
 import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:provider/provider.dart';
 

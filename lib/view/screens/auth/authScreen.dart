@@ -115,11 +115,11 @@ class _AuthScreenState extends State<AuthScreen> {
                                 color: Colors.transparent,
                                 shadows: [
                                   Shadow(
-                                      offset: Offset(0, -8), color: disabledBtn)
+                                      offset: Offset(0, -8), color: AppColors.disabledBtn)
                                 ],
                                 decorationThickness: 2,
                                 decoration: TextDecoration.underline,
-                                decorationColor: disabledBtn,
+                                decorationColor: AppColors.disabledBtn,
                               ))),
                     )
                   ],

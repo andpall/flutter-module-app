@@ -62,8 +62,8 @@ class App extends StatelessWidget {
         ],
         supportedLocales: const [Locale('en', ''), Locale('ru', '')],
         theme: Provider.of<ThemeProvider>(context).getDarkMode
-            ? darkTheme
-            : lightTheme,
+            ? AppThemes.darkTheme
+            : AppThemes.lightTheme,
         initialRoute:
             Provider.of<AuthStateProvider>(context).getUserEmail == null
                 ? AppRoutes.authRoute

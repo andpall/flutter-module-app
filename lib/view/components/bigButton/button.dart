@@ -24,7 +24,7 @@ class BigButton extends StatelessWidget {
             children: [
               ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(mainColor),
+                      backgroundColor: MaterialStateProperty.all(AppColors.mainColor),
                       fixedSize:
                           MaterialStateProperty.all(Size(width - 48, 40)),
                       textStyle: MaterialStateProperty.all(

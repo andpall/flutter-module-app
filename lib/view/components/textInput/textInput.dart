@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_mod_app/constants/colors.dart';
 
 class TextInput extends StatefulWidget {
@@ -56,7 +54,7 @@ class _TextInputState extends State<TextInput> {
               obscureText: widget.passwordUsing && !_isVisible,
               enableSuggestions: false,
               autocorrect: false,
-              cursorColor: mainColor,
+              cursorColor: AppColors.mainColor,
               onChanged: _onChange,
               decoration: InputDecoration(
                   fillColor: const Color.fromRGBO(224, 231, 255, 0.3),
@@ -69,12 +67,12 @@ class _TextInputState extends State<TextInput> {
                             _isVisible
                                 ? Icons.remove_red_eye
                                 : Icons.remove_red_eye_outlined,
-                            color: _isVisible ? disabledBtn : disabledBtn,
+                            color: _isVisible ? AppColors.disabledBtn : AppColors.disabledBtn,
                           ))
                       : null,
                   border: const UnderlineInputBorder(),
                   focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: mainColor))),
+                      borderSide: BorderSide(color: AppColors.mainColor))),
             ),
           ),
         ],

@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
   static final AuthRepository _authRepository = AuthRepository._internal();
+  Stream<User?> authStream = FirebaseAuth.instance.authStateChanges();
 
   factory AuthRepository() {
     return _authRepository;
@@ -17,12 +18,6 @@ class AuthRepository {
       'https://www.googleapis.com/auth/contacts.readonly',
     ],
   );
-
-  void listenUser() {
-    FirebaseAuth.instance.authStateChanges().listen(
-          (User? user) {},
-        );
-  }
 
   User? getUser() {
     return FirebaseAuth.instance.currentUser;

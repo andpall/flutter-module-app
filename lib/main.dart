@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_mod_app/constants/appRoutes.dart';
 import 'package:flutter_mod_app/core/stateProviders/auth.dart';
+import 'package:flutter_mod_app/core/stateProviders/profile.dart';
 
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => AuthStateProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ProfileStateProvider(),
       )
     ],
     child: const App(),

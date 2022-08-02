@@ -7,10 +7,12 @@ class TextInput extends StatefulWidget {
       this.onChange,
       this.passwordUsing = false,
       this.label = "",
+      this.initialValue = "",
       this.placeholder = ""})
       : super(key: key);
 
   final Function? onChange;
+  final String initialValue;
   final String placeholder;
   final String label;
   final bool passwordUsing;
@@ -55,6 +57,7 @@ class _TextInputState extends State<TextInput> {
               enableSuggestions: false,
               autocorrect: false,
               cursorColor: AppColors.mainColor,
+              controller: TextEditingController(text: widget.initialValue),
               onChanged: _onChange,
               decoration: InputDecoration(
                   fillColor: const Color.fromRGBO(224, 231, 255, 0.3),
@@ -67,7 +70,9 @@ class _TextInputState extends State<TextInput> {
                             _isVisible
                                 ? Icons.remove_red_eye
                                 : Icons.remove_red_eye_outlined,
-                            color: _isVisible ? AppColors.disabledBtn : AppColors.disabledBtn,
+                            color: _isVisible
+                                ? AppColors.disabledBtn
+                                : AppColors.disabledBtn,
                           ))
                       : null,
                   border: const UnderlineInputBorder(),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mod_app/core/models/user_data.dart';
+import 'package:flutter_mod_app/core/stateProviders/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -21,7 +23,11 @@ class _ProfileScreen extends State<ProfileScreen> {
     _email =
         Provider.of<AuthStateProvider>(context, listen: false).getUserEmail ??
             "";
+    _userData = Provider.of<ProfileStateProvider>(context, listen: false)
+        .getProfileData;
   }
+
+  late UserData? _userData = null;
 
   late String _username = "";
   String _usernameError = "";
@@ -81,45 +87,48 @@ class _ProfileScreen extends State<ProfileScreen> {
 
     return Scaffold(
         drawer: const DrawerNavigator(),
-        appBar: AppBar(
-          title: Text(Provider.of<AuthStateProvider>(context, listen: false)
-                  .getUserEmail ??
-              ""),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(_username),
-            TextInput(
-              label: "Nick name",
-              onChange: _setUsername,
+        appBar: AppBar(),
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(_username),
+                TextInput(
+                  label: "Nick name",
+                  onChange: _setUsername,
+                  initialValue: _userData?.nick ?? "",
+                ),
+                TextInput(
+                  label: "First name",
+                  onChange: _setFirstName,
+                ),
+                TextInput(
+                  label: "Last name",
+                  onChange: _setLastName,
+                ),
+                TextInput(
+                  label: "Age",
+                  onChange: _setAge,
+                ),
+                TextInput(
+                  label: "City",
+                  onChange: _setCity,
+                ),
+                TextInput(
+                  label: AppLocalizations.of(context)!.email,
+                  initialValue: _email,
+                  onChange: _setMail,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ElevatedButton(
+                      onPressed: _onPressed, child: const Text("Change Theme")),
+                ),
+              ],
             ),
-            TextInput(
-              label: "First name",
-              onChange: _setFirstName,
-            ),
-            TextInput(
-              label: "Last name",
-              onChange: _setLastName,
-            ),
-            TextInput(
-              label: "Age",
-              onChange: _setAge,
-            ),
-            TextInput(
-              label: "City",
-              onChange: _setCity,
-            ),
-            TextInput(
-              label: AppLocalizations.of(context)!.email,
-              onChange: _setMail,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
-                  onPressed: _onPressed, child: const Text("Change Theme")),
-            ),
-          ],
+          ),
         ));
   }
 }

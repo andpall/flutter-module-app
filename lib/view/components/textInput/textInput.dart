@@ -24,6 +24,25 @@ class TextInput extends StatefulWidget {
 class _TextInputState extends State<TextInput> {
   bool _isVisible = false;
 
+  final _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.text = widget.initialValue;
+    _controller.addListener(_controllerCallback);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _controllerCallback() {
+    _onChange(_controller.text);
+  }
+
   void _onPressedVisible() {
     setState(() => _isVisible = !_isVisible);
   }
@@ -57,7 +76,7 @@ class _TextInputState extends State<TextInput> {
               enableSuggestions: false,
               autocorrect: false,
               cursorColor: AppColors.mainColor,
-              controller: TextEditingController(text: widget.initialValue),
+              controller: _controller,
               onChanged: _onChange,
               decoration: InputDecoration(
                   fillColor: const Color.fromRGBO(224, 231, 255, 0.3),

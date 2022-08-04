@@ -19,12 +19,12 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreen extends State<ProfileScreen> {
   @override
   void initState() {
+    super.initState();
     _email =
         Provider.of<AuthStateProvider>(context, listen: false).getUserEmail ??
             "";
     _userData = Provider.of<ProfileStateProvider>(context, listen: false)
         .getProfileData;
-    super.initState();
   }
 
   late UserData? _userData;

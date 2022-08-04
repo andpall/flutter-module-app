@@ -45,6 +45,7 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => ProfileStateProvider(),
+        lazy: false,
       )
     ],
     child: const App(),

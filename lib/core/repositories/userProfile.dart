@@ -37,7 +37,7 @@ class ProfileRepository {
     }
   }
 
-  UserData getUserDataFromMap(Map<String, dynamic> map) {
+  UserData toUserDataFromMap(Map<String, dynamic> map) {
     String email = map["email"];
     String? nick = map["nick"];
     String? name = map["name"];

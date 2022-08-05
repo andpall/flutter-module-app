@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/core/models/user_data.dart';
 import 'package:flutter_mod_app/core/stateProviders/profile.dart';
+import 'package:flutter_mod_app/view/components/bigButton/button.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -94,49 +95,58 @@ class _ProfileScreen extends State<ProfileScreen> {
         drawer: const DrawerNavigator(),
         appBar: AppBar(),
         body: SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(_username),
-                TextInput(
-                  label: "Nick name",
-                  onChange: _setUsername,
-                  initialValue: _userData?.nick ?? "",
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(
+                    MediaQuery.of(context).size.width / 2),
+                child: Image.network(
+                  _avatar,
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: MediaQuery.of(context).size.width / 2,
+                  fit: BoxFit.cover,
                 ),
-                TextInput(
-                  label: "First name",
-                  onChange: _setFirstName,
-                  initialValue: _firstname,
-                ),
-                TextInput(
-                  label: "Last name",
-                  onChange: _setLastName,
-                  initialValue: _userData?.surname ?? "",
-                ),
-                TextInput(
-                  label: "Age",
-                  onChange: _setAge,
-                  initialValue: _userData?.age ?? "",
-                ),
-                TextInput(
-                  label: "City",
-                  onChange: _setCity,
-                  initialValue: _userData?.city ?? "",
-                ),
-                TextInput(
-                  label: AppLocalizations.of(context)!.email,
-                  initialValue: _userData?.email ?? "",
-                  onChange: _setMail,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                      onPressed: _onPressed, child: const Text("Save")),
-                ),
-              ],
-            ),
+              ),
+              TextInput(
+                label: "Nick name",
+                onChange: _setUsername,
+                initialValue: _userData?.nick ?? "",
+              ),
+              TextInput(
+                label: "First name",
+                onChange: _setFirstName,
+                initialValue: _firstname,
+              ),
+              TextInput(
+                label: "Last name",
+                onChange: _setLastName,
+                initialValue: _userData?.surname ?? "",
+              ),
+              TextInput(
+                label: "Age",
+                onChange: _setAge,
+                initialValue: _userData?.age ?? "",
+              ),
+              TextInput(
+                label: "City",
+                onChange: _setCity,
+                initialValue: _userData?.city ?? "",
+              ),
+              TextInput(
+                label: AppLocalizations.of(context)!.email,
+                initialValue: _userData?.email ?? "",
+                onChange: _setMail,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child:
+                    BigButton(onPressed: _onPressed, child: const Text("Save")),
+              ),
+            ],
           ),
         ));
   }

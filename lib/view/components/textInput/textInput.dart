@@ -23,12 +23,14 @@ class TextInput extends StatefulWidget {
 
 class _TextInputState extends State<TextInput> {
   bool _isVisible = false;
+  late FocusNode _focusNode;
 
   final _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _focusNode = FocusNode();
     _controller.text = widget.initialValue;
     _controller.addListener(_controllerCallback);
   }
@@ -36,6 +38,7 @@ class _TextInputState extends State<TextInput> {
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -67,18 +70,27 @@ class _TextInputState extends State<TextInput> {
               textAlign: TextAlign.left,
             ),
           ),
-          SizedBox(
-            height: 40,
-            child: TextField(
-              toolbarOptions: const ToolbarOptions(
-                  copy: true, paste: true, selectAll: true, cut: true),
-              obscureText: widget.passwordUsing && !_isVisible,
-              enableSuggestions: false,
-              autocorrect: false,
-              cursorColor: AppColors.mainColor,
-              controller: _controller,
-              onChanged: _onChange,
-              decoration: InputDecoration(
+          Container(
+            decoration: const BoxDecoration(
+                border: Border(
+                    left: BorderSide(color: Colors.white, width: 1),
+                    right: BorderSide(color: Colors.white, width: 1),
+                    top: BorderSide(color: Colors.white, width: 1),
+                    bottom: BorderSide(color: Colors.white, width: 1)),
+                borderRadius: BorderRadius.all(Radius.circular(8))),
+            child: SizedBox(
+              height: 40,
+              child: TextField(
+                toolbarOptions: const ToolbarOptions(
+                    copy: true, paste: true, selectAll: true, cut: true),
+                obscureText: widget.passwordUsing && !_isVisible,
+                enableSuggestions: false,
+                focusNode: _focusNode,
+                autocorrect: false,
+                cursorColor: AppColors.mainColor,
+                controller: _controller,
+                onChanged: _onChange,
+                decoration: InputDecoration(
                   fillColor: const Color.fromRGBO(224, 231, 255, 0.3),
                   filled: true,
                   hintText: widget.placeholder,
@@ -94,9 +106,16 @@ class _TextInputState extends State<TextInput> {
                                 : AppColors.disabledBtn,
                           ))
                       : null,
-                  border: const UnderlineInputBorder(),
                   focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.mainColor))),
+                      borderSide:
+                          BorderSide(color: AppColors.mainColor, width: 4),
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  border:
+                      const UnderlineInputBorder(borderSide: BorderSide.none),
+                  enabledBorder:
+                      const UnderlineInputBorder(borderSide: BorderSide.none),
+                ),
+              ),
             ),
           ),
         ],

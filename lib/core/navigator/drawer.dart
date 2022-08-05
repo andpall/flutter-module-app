@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/constants/appRoutes.dart';
+import 'package:flutter_mod_app/core/stateProviders/profile.dart';
+import 'package:provider/provider.dart';
 
 class DrawerNavigator extends StatefulWidget {
   const DrawerNavigator({Key? key}) : super(key: key);
@@ -12,6 +14,9 @@ class DrawerNavigator extends StatefulWidget {
 class _DrawerNavigatorState extends State<DrawerNavigator> {
   @override
   Widget build(BuildContext context) {
+    String? _profileAvatar =
+        Provider.of<ProfileStateProvider>(context).getProfileData?.avatarUrl;
+
     return Drawer(
       width: MediaQuery.of(context).size.width * 0.7,
       shape: const RoundedRectangleBorder(
@@ -21,14 +26,22 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
-          const SizedBox(
-            height: 240,
-            child: DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
+          Container(
+            margin: const EdgeInsets.only(top: 40),
+            height: 100,
+            width: 100,
+            child: Image.network(
+              _profileAvatar!,
+              fit: BoxFit.contain,
             ),
+          ),
+          const Text(
+            'Name',
+            style: TextStyle(color: Colors.black),
+          ),
+          const Text(
+            'Email',
+            style: TextStyle(color: Colors.black),
           ),
           _CustomListTile(AppRoutes.homeRoute, "Home"),
           _CustomListTile(AppRoutes.profileRoute, "Profile"),

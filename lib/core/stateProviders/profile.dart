@@ -14,6 +14,10 @@ class ProfileStateProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateProfile(UserData data) {
+    _profileRepository.setInfo(_email!, data);
+  }
+
   ProfileStateProvider() {
     _authRepo.authStream.listen((user) {
       if (user != null) {

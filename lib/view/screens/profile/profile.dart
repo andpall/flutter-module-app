@@ -5,9 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter_mod_app/core/navigator/drawer.dart';
-import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:flutter_mod_app/view/components/textInput/textInput.dart';
-import 'package:flutter_mod_app/core/stateProviders/theme.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,33 +18,40 @@ class _ProfileScreen extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _email =
-        Provider.of<AuthStateProvider>(context, listen: false).getUserEmail ??
-            "";
+
     _userData = Provider.of<ProfileStateProvider>(context, listen: false)
         .getProfileData;
+    _email = _userData?.email ?? "";
+    _username = _userData?.nick ?? "";
+    _avatar = _userData?.avatarUrl ?? "";
+    _firstname = _userData?.name ?? "";
+    _lastname = _userData?.surname ?? "";
+    _age = _userData?.age ?? "";
+    _city = _userData?.city ?? "";
   }
 
   late UserData? _userData;
 
-  late String _username = "";
+  late String _username;
   String _usernameError = "";
-  late String _firstname = "";
+  late String _firstname;
   String _firstnameError = "";
   late String _lastname = "";
-  String _lastameError = "";
+  String _lastnameError = "";
   late String _age = "";
   String _ageError = "";
   late String _city = "";
   String _cityError = "";
   late String _email;
   String _emailError = "";
+  late String _avatar;
 
   @override
   Widget build(BuildContext context) {
     void _onPressed() {
-      var themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-      themeProvider.switchThemeMode();
+      Provider.of<ProfileStateProvider>(context, listen: false).updateProfile(
+          UserData(
+              _email, _username, _firstname, _lastname, _age, _city, _avatar));
     }
 
     void _setUsername(String value) {
@@ -63,7 +68,7 @@ class _ProfileScreen extends State<ProfileScreen> {
 
     void _setLastName(String value) {
       setState(() {
-        _lastameError = value;
+        _lastnameError = value;
       });
     }
 
@@ -103,28 +108,32 @@ class _ProfileScreen extends State<ProfileScreen> {
                 TextInput(
                   label: "First name",
                   onChange: _setFirstName,
+                  initialValue: _firstname,
                 ),
                 TextInput(
                   label: "Last name",
                   onChange: _setLastName,
+                  initialValue: _userData?.surname ?? "",
                 ),
                 TextInput(
                   label: "Age",
                   onChange: _setAge,
+                  initialValue: _userData?.age ?? "",
                 ),
                 TextInput(
                   label: "City",
                   onChange: _setCity,
+                  initialValue: _userData?.city ?? "",
                 ),
                 TextInput(
                   label: AppLocalizations.of(context)!.email,
-                  initialValue: _email,
+                  initialValue: _userData?.email ?? "",
                   onChange: _setMail,
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
-                      onPressed: _onPressed, child: const Text("Change Theme")),
+                      onPressed: _onPressed, child: const Text("Save")),
                 ),
               ],
             ),

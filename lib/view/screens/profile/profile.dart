@@ -47,50 +47,50 @@ class _ProfileScreen extends State<ProfileScreen> {
   String _emailError = "";
   late String _avatar;
 
+  void _onPressed() {
+    Provider.of<ProfileStateProvider>(context, listen: false).updateProfile(
+        UserData(
+            _email, _username, _firstname, _lastname, _age, _city, _avatar));
+  }
+
+  void _setUsername(String value) {
+    setState(() {
+      _username = value;
+    });
+  }
+
+  void _setFirstName(String value) {
+    setState(() {
+      _firstname = value;
+    });
+  }
+
+  void _setLastName(String value) {
+    setState(() {
+      _lastnameError = value;
+    });
+  }
+
+  void _setAge(String value) {
+    setState(() {
+      _age = value;
+    });
+  }
+
+  void _setCity(String value) {
+    setState(() {
+      _city = value;
+    });
+  }
+
+  void _setMail(String value) {
+    setState(() {
+      _email = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    void _onPressed() {
-      Provider.of<ProfileStateProvider>(context, listen: false).updateProfile(
-          UserData(
-              _email, _username, _firstname, _lastname, _age, _city, _avatar));
-    }
-
-    void _setUsername(String value) {
-      setState(() {
-        _username = value;
-      });
-    }
-
-    void _setFirstName(String value) {
-      setState(() {
-        _firstname = value;
-      });
-    }
-
-    void _setLastName(String value) {
-      setState(() {
-        _lastnameError = value;
-      });
-    }
-
-    void _setAge(String value) {
-      setState(() {
-        _age = value;
-      });
-    }
-
-    void _setCity(String value) {
-      setState(() {
-        _city = value;
-      });
-    }
-
-    void _setMail(String value) {
-      setState(() {
-        _email = value;
-      });
-    }
-
     return Scaffold(
         drawer: const DrawerNavigator(),
         appBar: AppBar(),

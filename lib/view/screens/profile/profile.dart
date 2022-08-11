@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mod_app/constants/colors.dart';
 import 'package:flutter_mod_app/core/models/user_data.dart';
 import 'package:flutter_mod_app/core/stateProviders/profile.dart';
 import 'package:flutter_mod_app/view/components/bigButton/button.dart';
@@ -47,11 +48,17 @@ class _ProfileScreen extends State<ProfileScreen> {
   String _emailError = "";
   late String _avatar;
 
+  final double imageSize = 140;
+  final double iconSize = 28;
+  final double iconContainerSize = 48;
+
   void _onPressed() {
     Provider.of<ProfileStateProvider>(context, listen: false).updateProfile(
         UserData(
             _email, _username, _firstname, _lastname, _age, _city, _avatar));
   }
+
+  void _onIconPressed() {}
 
   void _setUsername(String value) {
     setState(() {
@@ -98,15 +105,35 @@ class _ProfileScreen extends State<ProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    MediaQuery.of(context).size.width / 2),
-                child: Image.network(
-                  _avatar,
-                  width: MediaQuery.of(context).size.width / 2,
-                  height: MediaQuery.of(context).size.width / 2,
-                  fit: BoxFit.cover,
-                ),
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(imageSize / 2),
+                    child: Image.network(
+                      _avatar,
+                      width: imageSize,
+                      height: imageSize,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: imageSize - iconContainerSize,
+                        top: imageSize - iconContainerSize),
+                    child: CircleAvatar(
+                      radius: (iconSize + 20) / 2,
+                      backgroundColor: AppColors.mainColor.withOpacity(0.8),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                          size: iconSize,
+                        ),
+                        onPressed: _onIconPressed,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               TextInput(
                 label: "Nick name",

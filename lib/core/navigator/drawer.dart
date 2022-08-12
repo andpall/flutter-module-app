@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/constants/appRoutes.dart';
 import 'package:flutter_mod_app/constants/colors.dart';
 import 'package:flutter_mod_app/core/stateProviders/profile.dart';
+import 'package:flutter_mod_app/core/stateProviders/theme.dart';
 import 'package:provider/provider.dart';
 
 part '../models/drawer_item.dart';
@@ -89,7 +90,8 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0, top: 4, bottom: 8),
+                    padding:
+                        const EdgeInsets.only(left: 20.0, top: 4, bottom: 8),
                     child: Text(
                       _email ?? "",
                       style: const TextStyle(color: AppColors.disabledBtn),
@@ -131,6 +133,12 @@ class _CustomListTile extends StatelessWidget {
       this.selected = false,
       this.callback]);
 
+  Color getColor(BuildContext context) {
+    if (selected == true) return AppColors.mainColor;
+    bool isDarkMode = context.read<ThemeProvider>().getDarkMode;
+    return isDarkMode ? AppColors.whiteColor : AppColors.blackColor;
+  }
+
   @override
   Widget build(BuildContext context) {
     void _onTap() {
@@ -145,7 +153,7 @@ class _CustomListTile extends StatelessWidget {
       dense: true,
       leading: Icon(
         icon,
-        color: selected ? AppColors.mainColor : AppColors.disabledBtn,
+        color: getColor(context),
       ),
       title: Transform.translate(
         offset: const Offset(-24, 0),

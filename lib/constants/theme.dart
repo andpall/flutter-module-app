@@ -8,6 +8,7 @@ class AppThemes {
       backgroundColor: const Color(0xfff6f6f6),
       primaryColor: AppColors.mainColor,
       primarySwatch: Colors.blue,
+      iconTheme: const IconThemeData(color: AppColors.blackColor),
       inputDecorationTheme: const InputDecorationTheme(
           fillColor: Color.fromRGBO(224, 231, 255, 0.3), filled: true),
       appBarTheme: const AppBarTheme(
@@ -22,6 +23,7 @@ class AppThemes {
       backgroundColor: const Color(0x00000000),
       primaryColor: AppColors.mainColor,
       primarySwatch: Colors.blue,
+      iconTheme: const IconThemeData(color: AppColors.whiteColor),
       inputDecorationTheme: const InputDecorationTheme(
           fillColor: Color.fromRGBO(224, 231, 255, 0.3), filled: true),
       appBarTheme: const AppBarTheme(

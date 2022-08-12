@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_mod_app/constants/appRoutes.dart';
+import 'package:flutter_mod_app/core/navigator/navigation_service.dart';
 import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:flutter_mod_app/core/stateProviders/profile.dart';
 
@@ -60,6 +61,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Module App',
+        navigatorKey: NavigationService().navigationKey,
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

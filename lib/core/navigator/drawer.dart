@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/constants/appRoutes.dart';
 import 'package:flutter_mod_app/constants/colors.dart';
+import 'package:flutter_mod_app/core/navigator/navigation_service.dart';
 import 'package:flutter_mod_app/core/stateProviders/profile.dart';
 import 'package:flutter_mod_app/core/stateProviders/theme.dart';
 import 'package:provider/provider.dart';
@@ -134,6 +135,7 @@ class _CustomListTile extends StatelessWidget {
       this.callback]);
 
   Color getColor(BuildContext context) {
+
     if (selected == true) return AppColors.mainColor;
     bool isDarkMode = context.read<ThemeProvider>().getDarkMode;
     return isDarkMode ? AppColors.whiteColor : AppColors.blackColor;
@@ -143,8 +145,8 @@ class _CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     void _onTap() {
       if (callback != null) callback!();
-      Navigator.pop(context);
-      Navigator.of(context).pushNamed(routeName);
+      NavigationService().pop();
+      NavigationService().navigateToRoute(routeName);
     }
 
     return ListTile(

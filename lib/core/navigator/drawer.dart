@@ -26,8 +26,9 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
   static int _selectedIndex = 0;
 
   final List<_DrawerItem> drawerItems = [
-    _DrawerItem(route: AppRoutes.homeRoute, label: "Home"),
-    _DrawerItem(route: AppRoutes.profileRoute, label: "Profile"),
+    _DrawerItem(route: AppRoutes.homeRoute, label: "Home", icon: Icons.home),
+    _DrawerItem(
+        route: AppRoutes.profileRoute, label: "Profile", icon: Icons.person),
   ];
 
   @override
@@ -69,7 +70,7 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20, top: 8),
                     child: CircleAvatar(
                         radius: 60,
                         backgroundImage: NetworkImage(_profileAvatar!)),
@@ -77,14 +78,22 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    _nick ?? "",
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 12),
+                    child: Text(
+                      _nick ?? "",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    _email ?? "",
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0, top: 4, bottom: 8),
+                    child: Text(
+                      _email ?? "",
+                      style: const TextStyle(color: AppColors.disabledBtn),
+                    ),
                   ),
                 )
               ],
@@ -92,13 +101,13 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
             ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(0),
                 itemCount: drawerItems.length,
                 itemBuilder: (context, index) {
                   return _CustomListTile(
                       drawerItems[index].route,
                       drawerItems[index].label,
-                      null,
+                      drawerItems[index].icon,
                       index == _selectedIndex,
                       () => tileCallback(index));
                 }),
@@ -112,12 +121,15 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
 class _CustomListTile extends StatelessWidget {
   final String? title;
   final String routeName;
-  final Icon? icon;
+  final IconData icon;
   final bool selected;
   final VoidCallback? callback;
 
   const _CustomListTile(this.routeName,
-      [this.title, this.icon, this.selected = false, this.callback]);
+      [this.title,
+      this.icon = Icons.abc,
+      this.selected = false,
+      this.callback]);
 
   @override
   Widget build(BuildContext context) {
@@ -128,9 +140,19 @@ class _CustomListTile extends StatelessWidget {
     }
 
     return ListTile(
-      title: Text(
-        title ?? routeName,
-        style: selected ? const TextStyle(color: AppColors.mainColor) : null,
+      contentPadding: const EdgeInsets.only(left: 8),
+      visualDensity: const VisualDensity(vertical: -2),
+      dense: true,
+      leading: Icon(
+        icon,
+        color: selected ? AppColors.mainColor : AppColors.disabledBtn,
+      ),
+      title: Transform.translate(
+        offset: const Offset(-24, 0),
+        child: Text(
+          title ?? routeName,
+          style: selected ? const TextStyle(color: AppColors.mainColor) : null,
+        ),
       ),
       onTap: _onTap,
     );

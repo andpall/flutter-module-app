@@ -55,7 +55,6 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
           borderRadius: BorderRadius.only(bottomRight: Radius.circular(20)),
         ),
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             Column(

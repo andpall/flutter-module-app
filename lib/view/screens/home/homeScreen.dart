@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/constants/appRoutes.dart';
-import 'package:flutter_mod_app/core/navigator/drawer.dart';
+import 'package:flutter_mod_app/core/navigator/drawer/drawer.dart';
 import 'package:flutter_mod_app/core/stateProviders/auth.dart';
 import 'package:provider/provider.dart';
 

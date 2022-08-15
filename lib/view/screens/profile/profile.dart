@@ -6,7 +6,7 @@ import 'package:flutter_mod_app/view/components/bigButton/button.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:flutter_mod_app/core/navigator/drawer.dart';
+import 'package:flutter_mod_app/core/navigator/drawer/drawer.dart';
 import 'package:flutter_mod_app/view/components/textInput/textInput.dart';
 
 class ProfileScreen extends StatefulWidget {

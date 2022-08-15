@@ -1,4 +1,4 @@
-part of '../navigator/drawer.dart';
+part of '../navigator/drawer/drawer.dart';
 
 class _DrawerItem{
    String route;

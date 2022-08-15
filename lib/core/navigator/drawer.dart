@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mod_app/constants/appRoutes.dart';
 import 'package:flutter_mod_app/constants/colors.dart';
@@ -25,8 +24,6 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
   late double drawerWidth = screenWidth * 0.7;
   double imageRadius = 60;
 
-  static int _selectedIndex = 0;
-
   final List<_DrawerItem> drawerItems = [
     _DrawerItem(route: AppRoutes.homeRoute, label: "Home", icon: Icons.home),
     _DrawerItem(
@@ -49,12 +46,6 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
     _nick = profileData?.nick;
   }
 
-  void tileCallback(index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,7 +65,7 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
                   child: Container(
                     padding: const EdgeInsets.only(left: 20, top: 8),
                     child: CircleAvatar(
-                        radius: 60,
+                        radius: imageRadius,
                         backgroundImage: NetworkImage(_profileAvatar!)),
                   ),
                 ),
@@ -108,11 +99,12 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
                 itemCount: drawerItems.length,
                 itemBuilder: (context, index) {
                   return _CustomListTile(
-                      drawerItems[index].route,
-                      drawerItems[index].label,
-                      drawerItems[index].icon,
-                      index == _selectedIndex,
-                      () => tileCallback(index));
+                    drawerItems[index].route,
+                    drawerItems[index].label,
+                    drawerItems[index].icon,
+                    ModalRoute.of(context)!.settings.name ==
+                        drawerItems[index].route,
+                  );
                 }),
           ],
         ),
@@ -126,16 +118,15 @@ class _CustomListTile extends StatelessWidget {
   final String routeName;
   final IconData icon;
   final bool selected;
-  final VoidCallback? callback;
 
-  const _CustomListTile(this.routeName,
-      [this.title,
-      this.icon = Icons.abc,
-      this.selected = false,
-      this.callback]);
+  const _CustomListTile(
+    this.routeName, [
+    this.title,
+    this.icon = Icons.abc,
+    this.selected = false,
+  ]);
 
   Color getColor(BuildContext context) {
-
     if (selected == true) return AppColors.mainColor;
     bool isDarkMode = context.read<ThemeProvider>().getDarkMode;
     return isDarkMode ? AppColors.whiteColor : AppColors.blackColor;
@@ -144,7 +135,6 @@ class _CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void _onTap() {
-      if (callback != null) callback!();
       NavigationService().pop();
       NavigationService().navigateToRoute(routeName);
     }

@@ -74,7 +74,7 @@ class _ProfileScreen extends State<ProfileScreen> {
 
   void _setLastName(String value) {
     setState(() {
-      _lastnameError = value;
+      _lastname = value;
     });
   }
 

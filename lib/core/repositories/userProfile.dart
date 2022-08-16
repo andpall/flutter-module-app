@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_mod_app/constants/db_collections.dart';
 import 'package:flutter_mod_app/core/models/user_data.dart';
 
 class ProfileRepository {
@@ -12,44 +13,30 @@ class ProfileRepository {
 
   ProfileRepository._internal();
 
-  void listenUser(String email, Function callback) {
-    final docRef = db.collection("users").doc(email);
-    docRef.snapshots().listen(
-          (event) => callback(event.data()),
-        );
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getUserStream(String email) {
+    final docRef = db.collection(DataBaseCollections.users).doc(email);
+    return docRef.snapshots();
   }
 
   void setInfo(String email, UserData data) {
     db
-        .collection("users")
+        .collection(DataBaseCollections.users)
         .doc(email)
         .set(data.toMap(), SetOptions(merge: true));
   }
 
   Future<Map<String, dynamic>?> getUserMap(String email) async {
     try {
-      final docRef = db.collection("users").doc(email);
+      final docRef = db.collection(DataBaseCollections.users).doc(email);
       final doc = await docRef.get();
-      final data = doc.data() as Map<String, dynamic>;
+      final data = doc.data();
       return data;
     } catch (e) {
       return null;
     }
   }
 
-  UserData toUserDataFromMap(Map<String, dynamic> map) {
-    String email = map["email"];
-    String? nick = map["nick"];
-    String? name = map["name"];
-    String? surname = map["surname"];
-    String? age = map["age"];
-    String? city = map["city"];
-    String? avatarUrl = map["avatarUrl"];
-    return UserData(email, nick, name, surname, age, city, avatarUrl);
-  }
-
-  void addInfo(UserData data) {
-    db.collection("users").add(data.toMap()).then((DocumentReference doc) =>
-        print('DocumentSnapshot added with ID: ${doc.id}'));
+  Future<void> addUserInfo(UserData data) async {
+    db.collection(DataBaseCollections.users).add(data.toMap());
   }
 }

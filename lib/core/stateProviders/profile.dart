@@ -10,7 +10,7 @@ class ProfileStateProvider with ChangeNotifier {
   late String? _email;
 
   void _setData(Map<String, dynamic> data) {
-    _profileData = _profileRepository.toUserDataFromMap(data);
+    _profileData = UserData.fromMap(data);
     notifyListeners();
   }
 
@@ -22,7 +22,16 @@ class ProfileStateProvider with ChangeNotifier {
     _authRepo.authStream.listen((user) {
       if (user != null) {
         _email = user.email!;
-        _profileRepository.listenUser(_email!, _setData);
+        var userStream = _profileRepository.getUserStream(_email!);
+        userStream.listen((event) {
+          var data = event.data();
+          if (data != null) {
+            _setData(event.data()!);
+          } else {
+            _profileRepository
+                .addUserInfo(UserData(_email!, "", "", "", "", "", ""));
+          }
+        });
       }
     });
   }

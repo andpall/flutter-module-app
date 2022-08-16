@@ -1,9 +1,9 @@
 part of '../navigator/drawer/drawer.dart';
 
 class _DrawerItem{
-   String route;
-   String label;
-   IconData icon;
+   final String route;
+   final String label;
+   final IconData icon;
 
-   _DrawerItem({required this.route, required this.label, required this.icon});
+   const _DrawerItem({required this.route, required this.label, required this.icon});
 }

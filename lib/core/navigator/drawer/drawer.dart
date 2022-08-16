@@ -10,46 +10,16 @@ part '../../models/drawer_item.dart';
 
 part 'list_tile.dart';
 
-class DrawerNavigator extends StatefulWidget {
+class DrawerNavigator extends StatelessWidget {
   const DrawerNavigator({Key? key}) : super(key: key);
 
   @override
-  State<DrawerNavigator> createState() => _DrawerNavigatorState();
-}
-
-class _DrawerNavigatorState extends State<DrawerNavigator> {
-  String? _profileAvatar;
-  String? _email;
-  String? _nick;
-
-  late double screenWidth;
-  late double drawerWidth = screenWidth * 0.7;
-  double imageRadius = 60;
-
-  final List<_DrawerItem> drawerItems = [
-    _DrawerItem(route: AppRoutes.homeRoute, label: "Home", icon: Icons.home),
-    _DrawerItem(
-        route: AppRoutes.profileRoute, label: "Profile", icon: Icons.person),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    screenWidth = MediaQuery.of(context).size.width;
-
-    var profileData = Provider.of<ProfileStateProvider>(context).getProfileData;
-    _profileAvatar = profileData?.avatarUrl;
-    _email = profileData?.email;
-    _nick = profileData?.nick;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double drawerWidth = screenWidth * 0.7;
+    double safeAreaHeight = screenHeight - MediaQuery.of(context).padding.top;
+
     return SafeArea(
       child: Drawer(
         width: drawerWidth,
@@ -59,66 +29,18 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
         child: SingleChildScrollView(
           child: Container(
             constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top,
-                maxWidth: drawerWidth),
+                minHeight: safeAreaHeight, maxWidth: drawerWidth),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 20, top: 8),
-                        child: CircleAvatar(
-                            radius: imageRadius,
-                            backgroundImage: NetworkImage(_profileAvatar!)),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 12),
-                        child: Text(
-                          _nick ?? "",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20.0, top: 4, bottom: 8),
-                        child: Text(
-                          _email ?? "",
-                          style: const TextStyle(color: AppColors.disabledBtn),
-                        ),
-                      ),
-                    ),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: const EdgeInsets.all(0),
-                        itemCount: drawerItems.length,
-                        itemBuilder: (context, index) {
-                          return _CustomListTile(
-                            drawerItems[index].route,
-                            drawerItems[index].label,
-                            drawerItems[index].icon,
-                            ModalRoute.of(context)!.settings.name ==
-                                drawerItems[index].route,
-                          );
-                        }),
-                  ],
+                  children: const [_DrawerHeader(), _DrawerItemList()],
                 ),
                 const Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(
                       padding: EdgeInsets.only(left: 16.0, bottom: 16),
-                      child: ExitButton(),
+                      child: _ExitButton(),
                     )),
               ],
             ),
@@ -129,8 +51,100 @@ class _DrawerNavigatorState extends State<DrawerNavigator> {
   }
 }
 
-class ExitButton extends StatelessWidget {
-  const ExitButton({Key? key}) : super(key: key);
+class _DrawerHeader extends StatefulWidget {
+  const _DrawerHeader({Key? key}) : super(key: key);
+
+  @override
+  State<_DrawerHeader> createState() => _DrawerHeaderState();
+}
+
+class _DrawerHeaderState extends State<_DrawerHeader> {
+  String? _profileAvatar;
+  String? _email;
+  String? _nick;
+
+  double imageRadius = 60;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    var profileData = Provider.of<ProfileStateProvider>(context).getProfileData;
+    _profileAvatar = profileData?.avatarUrl;
+    _email = profileData?.email;
+    _nick = profileData?.nick;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            padding: const EdgeInsets.only(left: 20, top: 8),
+            child: CircleAvatar(
+                radius: imageRadius,
+                backgroundImage: NetworkImage(_profileAvatar!)),
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, top: 12),
+            child: Text(
+              _nick ?? "",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20.0, top: 4, bottom: 8),
+            child: Text(
+              _email ?? "",
+              style: const TextStyle(color: AppColors.disabledBtn),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _DrawerItemList extends StatelessWidget {
+  const _DrawerItemList({Key? key}) : super(key: key);
+
+  static const List<_DrawerItem> drawerItems = [
+    _DrawerItem(route: AppRoutes.homeRoute, label: "Home", icon: Icons.home),
+    _DrawerItem(
+        route: AppRoutes.profileRoute, label: "Profile", icon: Icons.person),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(0),
+        itemCount: drawerItems.length,
+        itemBuilder: (context, index) {
+          return _CustomListTile(
+            drawerItems[index].route,
+            drawerItems[index].label,
+            drawerItems[index].icon,
+            ModalRoute.of(context)!.settings.name == drawerItems[index].route,
+          );
+        });
+  }
+}
+
+class _ExitButton extends StatelessWidget {
+  const _ExitButton({Key? key}) : super(key: key);
+
+  void onPress() {}
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +156,7 @@ class ExitButton extends StatelessWidget {
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40))),
             backgroundColor: MaterialStateProperty.all(AppColors.mainColor)),
-        onPressed: () {},
+        onPressed: onPress,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

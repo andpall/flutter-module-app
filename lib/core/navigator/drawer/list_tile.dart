@@ -5,6 +5,7 @@ class _CustomListTile extends StatelessWidget {
   final String routeName;
   final IconData icon;
   final bool selected;
+  static final NavigationService _navigationService = NavigationService();
 
   const _CustomListTile(this.routeName, [
     this.title,
@@ -23,8 +24,8 @@ class _CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void _onTap() {
-      NavigationService().pop();
-      NavigationService().navigateToRoute(routeName);
+      _navigationService.pop();
+      _navigationService.navigateToRoute(routeName);
     }
 
     return ListTile(

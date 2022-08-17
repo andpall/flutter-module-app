@@ -20,12 +20,12 @@ class DrawerNavigator extends StatelessWidget {
     double drawerWidth = screenWidth * 0.7;
     double safeAreaHeight = screenHeight - MediaQuery.of(context).padding.top;
 
-    return SafeArea(
-      child: Drawer(
-        width: drawerWidth,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(20)),
-        ),
+    return Drawer(
+      width: drawerWidth,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(20)),
+      ),
+      child: SafeArea(
         child: SingleChildScrollView(
           child: Container(
             constraints: BoxConstraints(

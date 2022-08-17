@@ -159,14 +159,14 @@ class _ExitButton extends StatelessWidget {
         onPressed: onPress,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+          children: const [
             Icon(
               Icons.logout_outlined,
-              color: Theme.of(context).colorScheme.onBackground,
+              color: AppColors.whiteColor,
             ),
             Text(
               "Log out",
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: TextStyle(color: AppColors.whiteColor),
             ),
           ],
         ),

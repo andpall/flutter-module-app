@@ -9,9 +9,14 @@ class ProfileStateProvider with ChangeNotifier {
   late UserData? _profileData;
   late String? _email;
 
-  void _setData(Map<String, dynamic> data) {
-    _profileData = UserData.fromMap(data);
-    notifyListeners();
+  void _updateData(event) {
+    var data = event.data();
+    if (data != null) {
+      _profileData = UserData.fromMap(data);
+      notifyListeners();
+    } else {
+      _profileRepository.addUserInfo(UserData(_email!, "", "", "", "", "", ""));
+    }
   }
 
   void updateProfile(UserData data) {
@@ -23,15 +28,7 @@ class ProfileStateProvider with ChangeNotifier {
       if (user != null) {
         _email = user.email!;
         var userStream = _profileRepository.getUserStream(_email!);
-        userStream.listen((event) {
-          var data = event.data();
-          if (data != null) {
-            _setData(event.data()!);
-          } else {
-            _profileRepository
-                .addUserInfo(UserData(_email!, "", "", "", "", "", ""));
-          }
-        });
+        userStream.listen(_updateData);
       }
     });
   }

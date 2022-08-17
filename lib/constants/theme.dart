@@ -6,6 +6,7 @@ class AppThemes {
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
       backgroundColor: const Color(0xfff6f6f6),
+      scaffoldBackgroundColor: const Color(0xfff6f6f6),
       primaryColor: AppColors.mainColor,
       primarySwatch: Colors.blue,
       iconTheme: const IconThemeData(color: AppColors.blackColor),
@@ -21,6 +22,7 @@ class AppThemes {
   static ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
       backgroundColor: const Color(0x00000000),
+      scaffoldBackgroundColor: const Color(0x00000000),
       primaryColor: AppColors.mainColor,
       primarySwatch: Colors.blue,
       iconTheme: const IconThemeData(color: AppColors.whiteColor),
